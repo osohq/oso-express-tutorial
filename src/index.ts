@@ -2,6 +2,7 @@ import express, { Request, Response, NextFunction } from 'express';
 import { json } from 'body-parser';
 import { lookUp, Expense } from './expense';
 import { lookUp as lookUpUser, User } from './user'; 
+import { authorize } from './authorization';
 
 const app = express();
 const parser = json();
@@ -26,7 +27,11 @@ app.get('/expenses/:expenseId', async (req, res) => {
   const id = req.params.expenseId;
   try {
     const expense = await lookUp(Number(id));
-    res.json(expense);
+    const actor = req.app.locals.current_user;
+    console.log('actor', actor);
+    console.log('resource', expense);
+    const result = await authorize(actor, 'view', expense);
+    res.json(result);
   } catch (e) {
     console.error(e);
     res.sendStatus(404);
