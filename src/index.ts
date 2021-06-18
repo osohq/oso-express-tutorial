@@ -28,13 +28,11 @@ app.get('/expenses/:expenseId', async (req, res) => {
   try {
     const expense = await lookUp(Number(id));
     const actor = req.app.locals.current_user;
-    console.log('actor', actor);
-    console.log('resource', expense);
     const result = await authorize(actor, 'view', expense);
     res.json(result);
   } catch (e) {
     console.error(e);
-    res.sendStatus(404);
+    res.sendStatus(403);
   }
 });
 
