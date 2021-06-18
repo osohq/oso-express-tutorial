@@ -1,6 +1,8 @@
 import sqlite3 from 'sqlite3';
 import { open, Database } from 'sqlite';
 
+const DB_FILE = process.env.DB_FILE || 'expenses.db';
+
 export interface ExpenseRecord {
   amount: number;
   description: string;
