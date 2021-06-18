@@ -1,15 +1,18 @@
 import { Request, Response } from 'express';
 import { lookUp, Expense } from './expense';
+import { authorize } from './authorization';
 
 export const getExpense = async (req: Request, res: Response) => {
-  const id = req.params.expenseId;
-  try {
-    const expense = await lookUp(Number(id));
-    res.json(expense);
-  } catch (e) {
-    console.error(e);
-    res.sendStatus(404);
-  }
+const id = req.params.expenseId;
+   try {
+     const expense = await lookUp(Number(id));
+     const actor = req.app.locals.current_user;
+     const result = await authorize(actor, 'view', expense);
+     res.json(result);
+   } catch (e) {
+     console.error(e);
+     res.sendStatus(403);
+   }
 };
 
 export const postExpense = async (req: Request, res: Response) => {

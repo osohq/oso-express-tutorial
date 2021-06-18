@@ -2,7 +2,6 @@ import express, { Request, Response, NextFunction } from 'express';
 import { json } from 'body-parser';
 import { lookUp, Expense } from './expense';
 import { lookUp as lookUpUser, User } from './user'; 
-import { authorize } from './authorization';
 import { getExpense, postExpense } from './controllers';
 
 const app = express();
