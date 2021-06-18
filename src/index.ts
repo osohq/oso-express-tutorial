@@ -7,7 +7,7 @@ import { authorize } from './authorization';
 const app = express();
 const parser = json();
 
-const requestUser = async (req: Request, res: Response, next: NextFunction) => {
+const requestUserMiddleware = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const email = req.header('user');
     if (email) {
@@ -21,7 +21,7 @@ const requestUser = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-app.use(requestUser);
+app.use(requestUserMiddleware);
 
 app.get('/expenses/:expenseId', async (req, res) => {
   const id = req.params.expenseId;
