@@ -19,6 +19,8 @@ const getOso = async () => {
   return oso;
 };
 
+// start-authorize
+
 export const authorize = async (actor: any, action: any, resource: any) => {
   const oso = await getOso();
   if (await oso.isAllowed(actor, action, resource)) return resource;
