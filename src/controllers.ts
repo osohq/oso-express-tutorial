@@ -3,7 +3,7 @@ import { lookUp, Expense } from './expense';
 import { authorize } from './authorization';
 
 export const getExpense = async (req: Request, res: Response) => {
-const id = req.params.expenseId;
+  const id = req.params.expenseId;
    try {
      const expense = await lookUp(Number(id));
      const actor = req.app.locals.current_user;
