@@ -11,7 +11,7 @@ npm install
 2. Instantiate the database.
 
 ```
-sqlite3 expenses.db --init expenses.sql
+sqlite3 expenses.db ".read expenses.sql"
 ```
 
 3. Start the server.
