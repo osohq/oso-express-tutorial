@@ -13,21 +13,19 @@ export class User {
 }
 
 export const get = async (id: number) => {
-  const record = await queryDb(
+  const records = await queryDb(
     "select id, email, title from users where id = ?", 
-    [id], 
-    true
+    [id]
   );
-  if (!record) throw "Not found";
-  return new User(record);
+  if (records.length) throw "Not found";
+  return new User(records[0]);
 };
 
 export const lookUp = async (email: string) => {
-  const record = await queryDb(
+  const records = await queryDb(
     "select id, email, title from users where email = ?", 
-    [email], 
-    true
+    [email]
   );
-  if (!record) throw "Not found";
-  return new User(record);
+  if (!records.length) throw "Not found";
+  return new User(records[0]);
 };
