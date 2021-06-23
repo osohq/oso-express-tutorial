@@ -17,7 +17,7 @@ export const get = async (id: number) => {
     "select id, email, title from users where id = ?", 
     [id]
   );
-  if (records.length) throw "Not found";
+  if (!records.length) throw "Not found";
   return new User(records[0]);
 };
 
