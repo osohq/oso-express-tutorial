@@ -34,10 +34,9 @@ export class Expense {
 }
 
 export const lookUp = async (id: number) => {
-  const record = await queryDb(
+  const records = await queryDb(
     "select id, amount, description, user_id from expenses where id = ?",
-    [id],
-    true);
-  if (!record) throw "Not found";
-  return new Expense(record); 
+    [id])
+  if (!records.length) throw "Not found";
+  return new Expense(records[0]); 
 }

@@ -23,11 +23,9 @@ const getDb = async () => {
   });
 };
 
-export const queryDb = async (query: string, args: Array<string|number> = [], one=false) => {
+export const queryDb = async (query: string, args: Array<string|number>): Promise<Array<any>> => {
   const db = await getDb();
-  return one 
-    ? await db.get(query, args) 
-    : await db.all(query, args)
+  return await db.all(query, args);
 };
 
 export const insertDb = async (query: string, args: Array<string|number> = []) => {
